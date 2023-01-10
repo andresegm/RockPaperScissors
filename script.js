@@ -1,10 +1,11 @@
 let playerScore = 0;
 let computerScore = 0;
 
-const container = document.querySelector('#container');
-const content = document.createElement('div')
-container.appendChild(content);
-content.textContent = `Player's Score: ${playerScore}. Computer's score: ${computerScore}`;
+const scores = document.querySelector('#scores');
+const computerScoreValue = document.querySelector('.computer')
+const playerScoreValue = document.querySelector('.player')
+const matchPlay = document.querySelector('.matchPlay')
+const matchResult = document.querySelector('.matchResult')
 
 const getComputerChoice = () => {
     let computerChoice = "";
@@ -20,47 +21,47 @@ const getComputerChoice = () => {
 }
 
 const updateScore = async () => {
-    content.textContent = `Player's Score: ${playerScore}. Computer's score: ${computerScore}`;
+    playerScoreValue.textContent = `Player's score: ${playerScore}`;
+    computerScoreValue.textContent =  `Computer's score: ${computerScore}`;
     if (playerScore === 5) {
-        await playRound();
-        console.log('Player wins the match!!');
+        matchResult.textContent = `Player wins the match!!`
     } else if (computerScore === 5) {
-        await playRound();
-        console.log('Computer wins the match!!');
+        matchResult.textContent = `Computer wins the match!!`
     }
 }
 
 const playRound = (playerSelection, computerSelection) => {
     if (playerScore === 5 || computerScore === 5) {
-        return 'This game is over. Please refresh the page to play again'
+        alert('This game is over. Please refresh the page to play again')
+        return
         }
     if (playerSelection === computerSelection) {
+            matchPlay.textContent = `You chose: ${playerSelection}. The computer chose: ${computerSelection}. It is a tie!!`
             updateScore();
-            return `You chose: ${playerSelection}. The computer chose: ${computerSelection}. It is a tie!!`
         } else if (playerSelection === 'rock' && computerSelection === 'paper') {
+            matchPlay.textContent = `You chose: ${playerSelection}. The computer chose: ${computerSelection}. The computer wins this round!`
             computerScore++;
             updateScore();
-            return `You chose: ${playerSelection}. The computer chose: ${computerSelection}. The computer wins this round!`
         } else if (playerSelection === 'rock' && computerSelection === 'scissors') {
+            matchPlay.textContent = `You chose: ${playerSelection}. The computer chose: ${computerSelection}. You win this round!`
             playerScore++;
             updateScore();
-            return `You chose: ${playerSelection}. The computer chose: ${computerSelection}. You win this round!`
         } else if (playerSelection === 'paper' && computerSelection === 'scissors') {
+            matchPlay.textContent = `You chose: ${playerSelection}. The computer chose: ${computerSelection}. The computer wins this round`
             computerScore++;
             updateScore();
-            return `You chose: ${playerSelection}. The computer chose: ${computerSelection}. The computer wins this round`
         } else if (playerSelection === 'paper' && computerSelection === 'rock') {
+            matchPlay.textContent = `You chose: ${playerSelection}. The computer chose: ${computerSelection}. You win this round!`
             playerScore++;
             updateScore();
-            return `You chose: ${playerSelection}. The computer chose: ${computerSelection}. You win this round!`
         } else if (playerSelection === 'scissors' && computerSelection === 'rock') {
+            matchPlay.textContent = `You chose: ${playerSelection}. The computer chose: ${computerSelection}. The computer wins this round!`
             computerScore++;
             updateScore();
-            return `You chose: ${playerSelection}. The computer chose: ${computerSelection}. The computer wins this round!`
         } else if (playerSelection === 'scissors' && computerSelection === 'paper') {
+            matchPlay.textContent = `You chose: ${playerSelection}. The computer chose: ${computerSelection}. You win this round!`
             playerScore++;
             updateScore();
-            return `You chose: ${playerSelection}. The computer chose: ${computerSelection}. You win this round!`
         } else {
             return `Please, make a valid selection`
         }
